@@ -3,7 +3,15 @@ package main
 import "github.com/gin-gonic/gin"
 import "net"
 import "net/http"
+import "os"
+import "encoding/json"
 
+var dyndnsConfig = &Config{}
+
+type Config struct {
+    User string
+    Password string
+}
 
 func validateIpV4(ipV4 string) bool {
     v4addr := net.ParseIP(ipV4)
@@ -22,12 +30,26 @@ func validateIpV6(ipV6 string) bool {
     return (v6addr.To16() != nil)
 }
 
+func (conf *Config) parseConfig(pathToConfig string) {
+	file, err := os.Open(pathToConfig)
+	if err != nil {
+		panic(err)
+	}
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&conf)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func main(){
+
+    dyndnsConfig.parseConfig("/tmp/dyndnsConfig.json")
 
     router := gin.Default()
 
     authorized := router.Group("/", gin.BasicAuth(gin.Accounts{
-        "user": "test",
+        dyndnsConfig.User : dyndnsConfig.Password,
     }))
 
 	authorized.GET("/update", func(c *gin.Context) {
