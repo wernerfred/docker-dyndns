@@ -11,6 +11,7 @@ var dyndnsConfig = &Config{}
 type Config struct {
     User string
     Password string
+    Domains []string
 }
 
 func validateIpV4(ipV4 string) bool {
@@ -42,6 +43,15 @@ func (conf *Config) parseConfig(pathToConfig string) {
 	}
 }
 
+func isDomainValid(domain string, domains []string) bool {
+    for _, cur := range domains {
+        if cur == domain {
+            return true
+        }
+    }
+    return false
+}
+
 func main(){
 
     dyndnsConfig.parseConfig("/tmp/dyndnsConfig.json")
@@ -57,10 +67,14 @@ func main(){
 		domain := c.Query("domain")
 		ip := c.Query("ip")
 
-        if (validateIpV4(ip) || validateIpV6(ip)) {
-            c.String(http.StatusOK, "domain: %s; ip: %s", domain, ip)
+        if isDomainValid(domain, dyndnsConfig.Domains) {
+            if (validateIpV4(ip) || validateIpV6(ip)) {
+                c.String(http.StatusOK, "domain: %s; ip: %s", domain, ip)
+             } else {
+                c.String(http.StatusBadRequest, "ip: %s ist not in a valid format", ip)
+            }
         } else {
-            c.String(http.StatusBadRequest, "ip: %s ist not in a valid format", ip)
+            c.String(http.StatusBadRequest, "subdomain: %s not allowed", domain)
         }
 	})
 
