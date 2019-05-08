@@ -26,7 +26,11 @@ func main(){
 
     router := gin.Default()
 
-	router.GET("/update", func(c *gin.Context) {
+    authorized := router.Group("/", gin.BasicAuth(gin.Accounts{
+        "user": "test",
+    }))
+
+	authorized.GET("/update", func(c *gin.Context) {
 
 		domain := c.Query("domain")
 		ip := c.Query("ip")
