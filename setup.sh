@@ -63,17 +63,20 @@ options {
 EOF
 
 echo "Creating dyndns api config"
-cat <<EOF > /tmp/
+cat > /root/dyndnsConfig.json <<EOF
 {
    "User": "${API_USER}",
    "Password": "${API_PASSWORD}",
-   "Domains": "${DYNDNS_DOMAINS}",
+   "Domains": ${DYNDNS_DOMAINS},
    "TTL": "${DYNDNS_TTL}"
 }
 EOF
 
+mkdir -p /var/cache/bind
 
 chown root:bind /var/cache/bind
-chown bind:bind /var/cache/bind/*
 chmod 770 /var/cache/bind
-chmod 644 /var/cache/bind/*
+
+service bind9 restart
+
+/root/dyndns-api

@@ -12,8 +12,8 @@ RUN apt update -qq && \
     apt-get clean
 
 COPY --from=builder /build/dyndns-api /root/
+COPY ./setup.sh /root/setup.sh
+RUN chmod +x /root/setup.sh 
 
-
-ADD ./dyndnsConfig.json /tmp/
-EXPOSE 8080
-CMD ["/root/dyndns-api"]
+EXPOSE 53 8080
+ENTRYPOINT ["/root/setup.sh"]
