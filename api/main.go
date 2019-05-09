@@ -5,13 +5,20 @@ import "net"
 import "net/http"
 import "os"
 import "encoding/json"
+import "os/exec"
+import "fmt"
+import "io/ioutil"
+import "bytes"
+import "bufio"
 
 var dyndnsConfig = &Config{}
 
 type Config struct {
     User string
     Password string
+    Zone string
     Domains []string
+    TTL string
 }
 
 func validateIpV4(ipV4 string) bool {
@@ -52,6 +59,39 @@ func isDomainValid(domain string, domains []string) bool {
     return false
 }
 
+func updateZone(zone string, domain string, recordType string, ttl string, ip string)string{
+
+	f, err := ioutil.TempFile("/tmp", "dyndns")
+    if err != nil {
+        return err.Error()
+    }
+
+    defer os.Remove(f.Name())
+    w := bufio.NewWriter(f)
+
+    w.WriteString(fmt.Sprintf("server localhost\n"))
+    w.WriteString(fmt.Sprintf("zone %s.\n", zone))
+    w.WriteString(fmt.Sprintf("update delete %s.%s %s\n", domain, zone, recordType))
+    w.WriteString(fmt.Sprintf("update add %s.%s %s %s %s\n", domain, zone, ttl, recordType, ip))
+    w.WriteString("send\n")
+
+    w.Flush()
+    f.Close()
+
+
+    cmd := exec.Command("/usr/bin/nsupdate", f.Name())
+	var out bytes.Buffer
+    var stderr bytes.Buffer
+    cmd.Stdout = &out
+    cmd.Stderr = &stderr
+    err = cmd.Run()
+    if err != nil {
+        return err.Error() + ": " + stderr.String()
+    }
+    return out.String()
+}
+
+
 func main(){
 
     dyndnsConfig.parseConfig("/root/dyndnsConfig.json")
@@ -70,6 +110,8 @@ func main(){
         if isDomainValid(domain, dyndnsConfig.Domains) {
             if (validateIpV4(ip) || validateIpV6(ip)) {
                 c.String(http.StatusOK, "domain: %s; ip: %s", domain, ip)
+                err := updateZone(dyndnsConfig.Zone, domain, "A", dyndnsConfig.TTL, ip)
+                c.String(http.StatusOK, "%s", err)
              } else {
                 c.String(http.StatusBadRequest, "ip: %s ist not in a valid format", ip)
             }
