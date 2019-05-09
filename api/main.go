@@ -54,7 +54,7 @@ func isDomainValid(domain string, domains []string) bool {
 
 func main(){
 
-    dyndnsConfig.parseConfig("/tmp/dyndnsConfig.json")
+    dyndnsConfig.parseConfig("/root/dyndnsConfig.json")
 
     router := gin.Default()
 
