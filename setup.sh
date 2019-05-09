@@ -1,10 +1,29 @@
 #!/bin/bash
 
-BIND9_ROOTDOMAIN=
-API_USER=
-API_PASSWORD=
-DYNDNS_TTL=
-DYNDNS_DOMAINS=
+if [[ -z "${BIND9_ROOTDOMAIN}" ]];then
+  echo "The variable BIND9_ROOTDOMAIN must be set"
+  exit 1
+fi
+
+if [[ -z "${API_USER}" ]];then
+  echo "The variable API_USER must be set"
+  exit 1
+fi
+
+if [[ -z "${API_PASSWORD}" ]];then
+  echo "The variable API_PASSWORD must be set"
+  exit 1
+fi
+
+if [[ -z "${DYNDNS_TTL}" ]];then
+  echo "The variable DYNDNS_TTL must be set"
+  exit 1
+fi
+
+if [[ -z "${DYNDNS_DOMAINS}" ]];then
+  echo "The variable DYNDNS_DOMAINS must be set"
+  exit 1
+fi
 
 echo "Creating local named configuration"
 
