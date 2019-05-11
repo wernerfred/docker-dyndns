@@ -94,6 +94,8 @@ func updateZone(zone string, domain string, recordType string, ttl string, ip st
 
 func main(){
 
+    gin.SetMode(gin.ReleaseMode)
+
     dyndnsConfig.parseConfig("/root/dyndnsConfig.json")
 
     router := gin.Default()
