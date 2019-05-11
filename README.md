@@ -22,7 +22,7 @@ docker run -it -d \
            -e DYNDNS_DOMAINS='["sub1", "sub2"]' \
            wernerfred/docker-dyndns
 ```
-With the variable ```BIND9_ROOTDOMAIN``` you set the domain of your dyndns server (See [DNS configuration](#dns-configuration)). With ```DYNDNS_DOMAINS``` you define the allowed dynamic subdomains in a json like array. Subdomains not listed there can not be updated later on. This keeps the consequences relatively small in case your API username and password gets exposed as only the defined subdomains can be updated.
+With the variable ```BIND9_ROOTDOMAIN``` you set the domain of your dyndns server (See [DNS configuration](#dns-configuration)). With ```DYNDNS_DOMAINS``` you define the allowed dynamic subdomains in a json like array. Subdomains not listed there can not be updated later on. This keeps the consequences relatively small in case your API username and password gets exposed as only the defined subdomains can be updated. You can add a volume to the container to make the dns configuration persistant: ```-v /choose/path/on/host/:/var/cache/bind/```. This enables you to stop the container and add some more allowed subdomains to the environment variables without loosing the current dyndns configuration/information for the next start up.
 ### Reverse proxy
 I highly recommend to use a reverse proxy on your system to kind of secure the API access. If you are using ```apache2``` you can orient yourself on the following configuration:
 ```
