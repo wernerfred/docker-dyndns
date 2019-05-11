@@ -61,7 +61,24 @@ Through that we are telling the internet that the subdomain dyndns(.example.com)
 ## Using the API
 
 ### Browser
+In modern browsers you can simply open the update URL:
+```
+https://ddns.example.com/update?domain=sub1&ip=1.2.3.4
+```
+You will then be promted for your API credentials that can be defined via the ```API_USER``` and ```API_PASSWORD``` variables:
 
+![alt text](https://github.com/wernerfred/docker-dyndns/blob/master/dyndns-browser.png "Using the API via browser")
 ### CLI
-
+It is also possible to use the API via command line tools like ```curl```. That command can then be used as a cronjob to constantly update the IP. The tool ```curl``` also provides the functionality to include basic authentication headers with the ```--user``` option:
+```
+curl --user user:password https://ddns.example.com/update?domain=sub1&ip=1.2.3.4
+```
 ### Router
+As modern routers provide a gui to configure custom dyndns services this project can also be used together with those. Usually the router uses basic authentication with the values of the user and password fields:
+
+![alt text](https://github.com/wernerfred/docker-dyndns/blob/master/dyndns-fritzbox.png "Using the API via a router gui")
+
+The url then looks like this:
+```
+https://ddns.example.com/update?domain=<domain>&ip=<ipaddr>
+```
