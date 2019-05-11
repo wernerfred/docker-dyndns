@@ -108,14 +108,21 @@ func main(){
 		ip := c.Query("ip")
 
         if isDomainValid(domain, dyndnsConfig.Domains) {
-            if (validateIpV4(ip) || validateIpV6(ip)) {
+            if (validateIpV4(ip)) {
                 err := updateZone(dyndnsConfig.Zone, domain, "A", dyndnsConfig.TTL, ip)
                 if err == "" {
                 c.String(http.StatusOK, "Set record for domain: %s to ip: %s", domain, ip)
                 } else {
                    c.String(http.StatusBadRequest, "%s", err)
                }
-             } else {
+            } else if (validateIpV6(ip)) {
+                err := updateZone(dyndnsConfig.Zone, domain, "AAAA", dyndnsConfig.TTL, ip)
+                if err == "" {
+                c.String(http.StatusOK, "Set record for domain: %s to ip: %s", domain, ip)
+                } else {
+                   c.String(http.StatusBadRequest, "%s", err)
+               }
+            } else {
                 c.String(http.StatusBadRequest, "ip: %s ist not in a valid format", ip)
             }
         } else {
