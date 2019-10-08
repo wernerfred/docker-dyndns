@@ -80,6 +80,10 @@ It is also possible to use the API via command line tools like ```curl```. That 
 ```
 curl --user user:password https://ddns.example.com/update?domain=sub1&ip=1.2.3.4
 ```
+You can obtain the current public IPv4 adress by using the ```dig``` command and save it into a variable for later usage (e.g. in a script):
+```
+IP=`dig @resolver1.opendns.com A myip.opendns.com -4 +short`
+````
 ### Router
 As modern routers provide a gui to configure custom dyndns services this project can also be used together with those. Usually the router uses basic authentication with the values of the user and password fields:
 
