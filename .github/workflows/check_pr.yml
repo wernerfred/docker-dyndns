@@ -1,0 +1,29 @@
+name: Check PR
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pull request code 
+        uses: actions/checkout@v2
+        
+      - name: Lint Dockerfile using hadolint
+        uses: burdzwastaken/hadolint-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HADOLINT_ACTION_DOCKERFILE_FOLDER: .
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout pull request code 
+      uses: actions/checkout@v2
+
+    - name: docker
+      uses: docker/build-push-action@v1
+      with:
+        push: false
