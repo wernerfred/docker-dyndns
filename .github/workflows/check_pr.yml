@@ -8,7 +8,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout pull request code 
+      - name: Checkout PR code 
         uses: actions/checkout@v2
         
       - name: Lint Dockerfile using hadolint
@@ -20,10 +20,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout pull request code 
+    - name: Checkout PR code 
       uses: actions/checkout@v2
 
-    - name: docker
+    - name: Build docker image
       uses: docker/build-push-action@v1
       with:
         push: false
