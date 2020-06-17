@@ -1,0 +1,31 @@
+
+name: Build + push to DockerHub
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  
+      
+    - name: Push to DockerHub with latest tag
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME_DYNDNS }}
+        password: ${{ secrets.DOCKERHUB_TOKEN_DYNDNS }}
+        repository: wernerfred/docker-dyndns
+        tags: latest
+
+    - name: Push to Dockerhub with version Tag
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME_DYNDNS }}
+        password: ${{ secrets.DOCKERHUB_TOKEN_DYNDNS }}
+        repository: wernerfred/docker-dyndns
+        tag_with_ref: true
+ 
+
