@@ -1,9 +1,10 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wernerfred/docker-dyndns/Build%20+%20push%20to%20DockerHub?label=Build%20%26%20Push%20to%20DockerHub)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wernerfred/docker-dyndns/Build%20+%20push%20to%20DockerHub?label=Docker%20Build)
 ![Docker Pulls](https://img.shields.io/docker/pulls/wernerfred/docker-dyndns?label=Docker%20Pulls)
 ![GitHub](https://img.shields.io/github/license/wernerfred/docker-dyndns?label=License)
-![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/wernerfred/docker-dyndns)
+![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/wernerfred/docker-dyndns?label=Image%20Size)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/wernerfred/docker-dyndns?label=Latest%20Release)
 ![Docker Image Version (latest semver)](https://img.shields.io/docker/v/wernerfred/docker-dyndns?label=Latest%20Image)
+![GitHub Release Date](https://img.shields.io/github/release-date/wernerfred/docker-dyndns?label=Release%20Date)
 
 
 # Host your own Dyndns Server using Docker
