@@ -1,4 +1,3 @@
-
 name: Build + push to DockerHub
 
 on:
@@ -27,5 +26,3 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN_DYNDNS }}
         repository: wernerfred/docker-dyndns
         tag_with_ref: true
- 
-

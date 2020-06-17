@@ -19,3 +19,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_DYNDNS }}
         WITH_V: true
         RELEASE_BRANCHES: master
+        DEFAULT_BUMP: none
