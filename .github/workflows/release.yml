@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    name: Upload Release Asset
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -23,7 +22,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body:
+          body: ""
           draft: false
           prerelease: false
 
