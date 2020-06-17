@@ -1,0 +1,21 @@
+name: Apply semver tag
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code 
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+        
+    - name: Apply correct git tag
+      uses: anothrNick/github-tag-action@1.19.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_DYNDNS }}
+        WITH_V: true
+        RELEASE_BRANCHES: master
