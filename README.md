@@ -1,3 +1,11 @@
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wernerfred/docker-dyndns/Build%20+%20push%20to%20DockerHub?label=Build%20%26%20Push%20to%20DockerHub)
+![Docker Pulls](https://img.shields.io/docker/pulls/wernerfred/docker-dyndns?label=Docker%20Pulls)
+![GitHub](https://img.shields.io/github/license/wernerfred/docker-dyndns?label=License)
+![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/wernerfred/docker-dyndns)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/wernerfred/docker-dyndns?label=Latest%20Release)
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/wernerfred/docker-dyndns?label=Latest%20Image)
+
+
 # Host your own Dyndns Server using Docker
 
 This project uses ```bind9``` and ```go``` inside a ```docker``` container to build a dyndns server/service that can easily be self-hosted. We use ```bind``` as the DNS-Server whereas ```go``` is used to serve a API and update the DNS configuration. The API uses basic authentication to restrict the usage (see [Reverse Proxy](#reverse-proxy)). You need a server with a static IP, a domain and the possibility to add ```NS``` and ```A``` records to it's DNS configuration. Furthermore it is mandatory to define the subdomains which can be used to reduce abuse in case of a data breach.
@@ -9,6 +17,15 @@ To build this project from source make sure to clone the repository from github 
 ```
 root@server /opt/docker-dyndns # docker build -t wernerfred/docker-dyndns .
 ```
+
+### Pull from DockerHub
+
+Another possibility is pulling the image from the [DockerHub repository](https://hub.docker.com/r/wernerfred/docker-dyndns). Builds of this image are automated and based on the master branch.
+```
+docker pull wernerfred/docker-dyndns
+```
+
+### Run Container
 To run the container adjust the following command according to your needs:
 ```
 docker run -it -d \
