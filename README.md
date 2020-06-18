@@ -21,7 +21,7 @@ root@server /opt/docker-dyndns # docker build -t wernerfred/docker-dyndns .
 
 ### Pull from DockerHub
 
-Another possibility is pulling the image from the [DockerHub repository](https://hub.docker.com/r/wernerfred/docker-dyndns). Builds of this image are automated and based on the master branch.
+Another possibility is pulling the image from the [DockerHub repository](https://hub.docker.com/r/wernerfred/docker-dyndns). Builds of this image are automated and based on releases of the master branch.
 ```
 docker pull wernerfred/docker-dyndns
 ```
