@@ -3,6 +3,10 @@ name: Apply semver tag
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+    - '.github/**'
+    - 'README.md'
+    - '.gitignore'
 
 jobs:
   build:
@@ -16,7 +20,7 @@ jobs:
     - name: Apply correct git tag
       uses: anothrNick/github-tag-action@1.19.0
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_DYNDNS }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN_DYNDNS }}
         WITH_V: true
         RELEASE_BRANCHES: master
         DEFAULT_BUMP: none
